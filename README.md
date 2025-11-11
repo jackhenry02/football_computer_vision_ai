@@ -65,10 +65,9 @@ The project demonstrates how to combine **object detection**, **multi-object tra
 
 ## Key Visuals
 
-Replace these placeholders with your own generated images (found in the `/images` folder):
 
 ### 1. System Overview
-![Football AI Pipeline](images/ootball-ai-diagram.png)
+![Football AI Pipeline](images/football-ai-diagram.png)
 
 ### 2. Object Detection Example
 ![Player and Ball Detection](images/Unknown.png)
