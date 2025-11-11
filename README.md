@@ -1,4 +1,4 @@
-# Football AI — Computer Vision for Sports Analytics
+# Football AI: Computer Vision for Sports Analytics
 
 This project builds an **AI-powered football analysis system** using computer vision and deep learning.  
 It detects and tracks players and the ball in match footage, identifies teams, and calculates key metrics such as ball possession and player speed.
@@ -68,22 +68,27 @@ The project demonstrates how to combine **object detection**, **multi-object tra
 Replace these placeholders with your own generated images (found in the `/images` folder):
 
 ### 1. System Overview
-![Football AI Pipeline](images/placeholder_overview.png)
+![Football AI Pipeline](images/ootball-ai-diagram.png)
 
 ### 2. Object Detection Example
-![Player and Ball Detection](images/placeholder_detection.png)
+![Player and Ball Detection](images/Unknown.png)
 
 ### 3. Player Tracking
-![Tracked Players with IDs](images/placeholder_tracking.png)
+![Tracked Players with IDs](images/Unknown-2.png)
 
 ### 4. Team Classification
-![Team Clustering Visualization](images/placeholder_teams.png)
+![Team Clustering Visualization](images/image.png)
+![Team Clustering Visualization Marked](images/Unknown-3.png)
 
 ### 5. Camera Calibration
-![Pitch Mapping and Coordinate Projection](images/placeholder_calibration.png)
+![Pitch Mapping and Coordinate Projection - Dots](images/Unknown-4.png)
+![Pitch Mapping and Coordinate Projection - Lines](images/Unknown-5.png)
+![Pitch Mapping and Coordinate Projection - Digitised](images/Unknown-7.png)
 
 ### 6. Match Analytics
-![Possession and Movement Heatmap](images/placeholder_analytics.png)
+![Possession and Movement Heatmap](images/Unknown-8.png)
+![all Tracking](images/Unknown-9.png)
+
 
 ---
 
