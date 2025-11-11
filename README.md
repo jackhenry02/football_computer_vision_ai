@@ -1,105 +1,141 @@
-# football_computer_vision_ai
+# Football AI — Computer Vision for Sports Analytics
 
+This project builds an **AI-powered football analysis system** using computer vision and deep learning.  
+It detects and tracks players and the ball in match footage, identifies teams, and calculates key metrics such as ball possession and player speed.
 
-Developing an automated player, referee, and ball tracker for football based on tutorials and videos: https://www.youtube.com/watch?v=aBVGKoNZQUw
-
-# Football AI: Computer Vision for Sports Analytics
-
-This notebook walks through building an AI system that uses **computer vision** to analyze football (soccer) matches.  
-The workflow integrates **object detection**, **player and ball tracking**, **team classification**, and **spatial analytics** such as possession and speed estimation.
+The project demonstrates how to combine **object detection**, **multi-object tracking**, **unsupervised clustering**, and **camera calibration** to extract insights from sports video data.
 
 ---
 
-## Overview of the Process
+## Overview
 
-1. **Setup and Configuration**
-   - Install required dependencies and connect APIs.
-   - Use **Hugging Face** for model access and **Roboflow** for dataset and model deployment.
-   - Ensure GPU runtime is active for real-time processing (`Runtime > Change runtime type > GPU`).
+### Workflow
 
-2. **Data and Models**
-   - Download pre-trained models for player and ball detection using Roboflow’s API.
-   - Load the detection model via **YOLOv8** or **Detectron2** backend (depending on tutorial version).
-   - Use sample match footage or your own videos for analysis.
+1. **Setup**
+   - Install dependencies and configure API keys for Hugging Face and Roboflow.
+   - Enable GPU acceleration for efficient model inference.
+
+2. **Data & Model Loading**
+   - Retrieve pre-trained models via the **Roboflow API**.
+   - Load object detection networks (e.g., **YOLOv8**) to recognize players, referees, and the ball.
 
 3. **Object Detection**
-   - Detect all key objects: players, ball, and referees.
-   - Visualize bounding boxes and class labels for each detected entity.
-   - Compute model performance metrics (confidence, precision, recall).
+   - Detect entities in each video frame.
+   - Annotate detections with class labels and confidence scores.
+   - Each detection returns bounding box coordinates `(x_min, y_min, x_max, y_max)` and class probabilities.
 
 4. **Object Tracking**
-   - Apply **SORT** (Simple Online and Realtime Tracking) or **ByteTrack** to maintain consistent player IDs frame-to-frame.
-   - Track the movement of players and ball across the pitch.
-   - Handle occlusions and identity switches.
+   - Apply **SORT** (Simple Online and Realtime Tracking) or **ByteTrack** algorithms to maintain consistent player and ball identities across frames.
+   - Tracking uses a **Kalman Filter** for motion prediction and **IoU matching** to associate new detections with existing tracks.
 
 5. **Team Classification**
-   - Cluster detected players based on jersey color or model embeddings.
-   - Assign team identities automatically (e.g., “Team A” vs “Team B”).
+   - Extract dominant color features from detected player regions.
+   - Use **K-Means clustering** in RGB color space to separate players into teams based on jersey color.
+   - Cluster centroids are then used to label players as belonging to *Team A* or *Team B*.
 
-6. **Camera Calibration & Field Mapping**
-   - Use **camera calibration** techniques to project 2D image coordinates onto a 3D football pitch.
-   - Enable metrics like distance covered, average speed, and zone heatmaps.
+6. **Camera Calibration**
+   - Define homography between 2D image coordinates and 3D pitch coordinates using known reference points.
+   - This enables mapping of player positions to real-world pitch coordinates.
+   - Distances, speeds, and zones can then be calculated in meters rather than pixels.
 
-7. **Analytics and Visualization**
-   - Compute and display:
-     - Ball possession by team
-     - Player distances covered
-     - Speed estimates
-     - Pass maps and heatmaps
-   - Visualize results frame-by-frame or as an overlaid video.
-
----
-
-## Tools and Libraries Used
-
-| Tool / Library | Purpose | Notes |
-|----------------|----------|-------|
-| **OpenCV** | Video frame reading, drawing, coordinate transformations | Core for all computer vision operations |
-| **Roboflow SDK** | Access models, datasets, and API-based inference | Handles detection models |
-| **Hugging Face Hub** | Authenticates access to pretrained models | Requires a read-access token |
-| **Ultralytics YOLOv8** | Object detection model for players and ball | Fast and accurate |
-| **NumPy / Pandas** | Data management and analysis | Used for tracking stats |
-| **Matplotlib / Seaborn** | Plotting and visualization | Used for analytics and debugging |
-| **SORT / ByteTrack** | Multi-object tracking | Maintains identities across frames |
+7. **Performance Analytics**
+   - Compute statistics such as:
+     - Ball possession time per team
+     - Average player speed (using frame-to-frame displacement and FPS)
+     - Total distance covered
+   - Visualize player trajectories, pass maps, and movement heatmaps.
 
 ---
 
-## Image Placeholders
+## Tools and Technologies
 
-Below are key images used throughout the notebook.  
-Replace the placeholders with your own image paths (e.g., `images/field_mapping.png`).
+| Tool / Library | Purpose | Description |
+|----------------|----------|--------------|
+| **OpenCV** | Core computer vision library | Frame extraction, visualization, transformations |
+| **Roboflow SDK** | Model management | Access pre-trained detection models via API |
+| **Hugging Face Hub** | Model authentication | Stores access tokens for model use |
+| **Ultralytics YOLOv8** | Object detection | Detects players, ball, and referees |
+| **NumPy / Pandas** | Data processing | Statistical calculations and tabular analysis |
+| **Matplotlib / Seaborn** | Plotting | Visual analytics for player tracking and heatmaps |
+| **SORT / ByteTrack** | Multi-object tracking | Maintains consistent IDs for players and ball |
+| **K-Means Clustering** | Team classification | Groups players by jersey color features |
+| **Homography Estimation** | Camera calibration | Maps image coordinates to real-world pitch coordinates |
 
-### 1. Project Overview Diagram
-![INSERT: Overview Diagram of Football AI Pipeline](images/placeholder_overview.png)
+---
 
-### 2. Object Detection Output
-![INSERT: Frame showing players and ball detected with bounding boxes](images/placeholder_detection.png)
+## Key Visuals
 
-### 3. Player Tracking Visualization
-![INSERT: Frame showing tracked players with consistent IDs](images/placeholder_tracking.png)
+Replace these placeholders with your own generated images (found in the `/images` folder):
+
+### 1. System Overview
+![Football AI Pipeline](images/placeholder_overview.png)
+
+### 2. Object Detection Example
+![Player and Ball Detection](images/placeholder_detection.png)
+
+### 3. Player Tracking
+![Tracked Players with IDs](images/placeholder_tracking.png)
 
 ### 4. Team Classification
-![INSERT: Visualization showing team color clustering or separation](images/placeholder_teams.png)
+![Team Clustering Visualization](images/placeholder_teams.png)
 
-### 5. Camera Calibration / Field Mapping
-![INSERT: Pitch calibration overlay or transformation grid](images/placeholder_calibration.png)
+### 5. Camera Calibration
+![Pitch Mapping and Coordinate Projection](images/placeholder_calibration.png)
 
-### 6. Analytics Output
-![INSERT: Possession, heatmaps, or performance metrics](images/placeholder_analytics.png)
-
----
-
-## Summary
-
-This tutorial demonstrates the complete computer vision pipeline for **sports analytics**, including:
-- Object detection and tracking
-- Team and event classification
-- Camera calibration and geometric projection
-- Visual analytics of game statistics
-
-It provides a foundation for more advanced extensions such as automatic highlight generation, pass prediction, or tactical visualization.
+### 6. Match Analytics
+![Possession and Movement Heatmap](images/placeholder_analytics.png)
 
 ---
 
+## Getting Started
 
+1. **Clone this repository**
+   ```bash
+   git clone https://github.com/jackhenry02/football_computer_vision_ai.git
+   cd football_computer_vision_ai
+   ```
 
+2. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Set up environment variables**
+   - Create API tokens on:
+     - [Hugging Face Tokens](https://huggingface.co/settings/tokens)
+     - [Roboflow API Key](https://app.roboflow.com/settings/api)
+   - Store them securely (e.g., using environment variables or `.env`).
+
+4. **Run the notebook**
+   ```bash
+   jupyter notebook football_ai.ipynb
+   ```
+
+---
+
+## Results
+
+After running the full pipeline, you’ll be able to:
+- Track every player and the ball in real time  
+- Estimate speed and distance covered  
+- Calculate ball possession  
+- Visualize match dynamics through annotated frames and plots  
+
+---
+
+## Potential Extensions
+
+- Automatic **highlight generation** based on events  
+- Tactical visualization (e.g., heat zones, formation tracking)  
+- Integration with real-time match feeds  
+- Player performance dashboards  
+
+---
+
+## Acknowledgements
+
+- [Roboflow](https://roboflow.com) — Dataset and model hosting  
+- [Ultralytics YOLOv8](https://github.com/ultralytics/ultralytics) — Object detection backbone  
+- [Hugging Face](https://huggingface.co) — Model and dataset access hub  
+
+---
